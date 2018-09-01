@@ -28,8 +28,18 @@ final class ParentViewController: UIViewController {
     @IBAction func tapUnowned(_ sender: UIButton) {
         addChildView(by: .unowned)
     }
+    
+    private func resetChildViewControllers() {
+        childViewControllers.forEach {
+            $0.willMove(toParentViewController: nil)
+            $0.view.removeFromSuperview()
+            $0.removeFromParentViewController()
+        }
+    }
 
     private func addChildView(by referenceType: ReferenceType) {
+        resetChildViewControllers()
+
         let storyboard = UIStoryboard(name: "ContainerSample", bundle: nil)
         let childViewController = storyboard.instantiateViewController(withIdentifier: "Child") as! ChildViewController
         let closure: (String) -> Void
@@ -53,5 +63,6 @@ final class ParentViewController: UIViewController {
         childViewController.view.frame = containerView.bounds
         containerView.addSubview(childViewController.view)
         childViewController.didMove(toParentViewController: self)
+        
     }
 }
