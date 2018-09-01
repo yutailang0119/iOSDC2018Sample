@@ -14,7 +14,7 @@ final class ChildViewController: UIViewController {
     var tapClosure: ((String) -> Void)?
 
     @IBAction func tap(_ sender: UIButton) {
-        tapClosure!("\(referenceType!): Tapped!!")
+        tapClosure!("\(referenceType): Tapped!!")
     }
 
 }
